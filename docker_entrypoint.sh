@@ -25,11 +25,12 @@ fi
 
 FNVER="v0.17.4-beta.rc1"
 
-LNDFN="lnd-$FNOS-$FNARCH-$FNVER.tar.gz"
-echo $LNDFN
+# Do this in lndshell instead
+#LNDFN="lnd-$FNOS-$FNARCH-$FNVER.tar.gz"
+#echo $LNDFN
 
-wget -O /tmp/lnd.tar.gz https://github.com/lightningnetwork/lnd/releases/download/$FNVER/$LNDFN
-tar xzf /tmp/lnd.tar.gz -C /tmp
-cp /tmp/lnd-linux-arm64-v0.17.4-beta.rc1/lncli /usr/local/bin
+#wget -O /tmp/lnd.tar.gz https://github.com/lightningnetwork/lnd/releases/download/$FNVER/$LNDFN
+#tar xzf /tmp/lnd.tar.gz -C /tmp
+#cp /tmp/lnd-linux-arm64-v0.17.4-beta.rc1/lncli /usr/local/bin
 
 exec /usr/bin/gotty --port 8080 --permit-write --reconnect /bin/bash
