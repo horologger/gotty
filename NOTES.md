@@ -26,7 +26,7 @@ docker buildx build --platform linux/arm64 --tag horologger/gotty:v1.5.0 --load 
 # Build and push to docker hub
 ```
 docker login -u horologger -p <password>
-docker buildx build --platform linux/arm64,linux/amd64 --tag horologger/gotty:v1.5.0 --output "type=registry" .
+docker buildx build --platform linux/arm64,linux/amd64 --tag horologger/gotty:v1.5.1 --output "type=registry" .
 ```
 
 #First run on Zilla
