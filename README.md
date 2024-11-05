@@ -154,7 +154,7 @@ $ gotty -w docker run -it --rm busybox
 
 ## Development
 
-You can build a binary by simply running `make`. go1.16 is required.
+You can build a binary by simply running `make`. go1.20 is required.
 
 To build the frontend part (JS files and other static files), you need `npm`.
 
