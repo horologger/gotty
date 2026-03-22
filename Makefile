@@ -35,16 +35,16 @@ all: gotty
 bindata/static bindata/static/css bindata/static/js:
 	mkdir -p $@
 
-bindata/static/%: resources/% | bindata/static/css 
+bindata/static/%: resources/% | bindata/static/css
 	cp "$<" "$@"
 
-bindata/static/css/%.css: resources/%.css | bindata/static 
+bindata/static/css/%.css: resources/%.css | bindata/static
 	cp "$<" "$@"
 
-bindata/static/css/xterm.css: js/node_modules/xterm/css/xterm.css | bindata/static
+bindata/static/css/xterm.css: js/node_modules/@xterm/xterm/css/xterm.css | bindata/static
 	cp "$<" "$@"
 
-js/node_modules/xterm/dist/xterm.css:
+js/node_modules/@xterm/xterm/dist/xterm.css:
 	cd js && \
 	npm install
 
@@ -88,5 +88,5 @@ clean:
 	rm -fr gotty builds js/dist bindata/static js/node_modules
 
 addcontributors:
-	gh issue list -s all -L 1000 --json author -t "$$(echo '{{ range . }}{{ .author.login }}\n{{ end }}')" | sort | uniq | xargs -Ifoo all-contributors add foo bug --commitTemplate '<%= (newContributor ? "Add" : "Update") %> @<%= username %> as a contributor'
-	gh pr list -s all -L 1000 --json author -t "$$(echo '{{ range . }}{{ .author.login }}\n{{ end }}')" | sort | uniq | xargs -Ifoo all-contributors add foo code --commitTemplate '<%= (newContributor ? "Add" : "Update") %> @<%= username %> as a contributor'
+	-gh issue list -s all -L 1000 --json author -t "$$(/bin/echo -e '{{ range . }}{{ .author.login }}\n{{ end }}')" | sort | uniq | xargs -Ifoo -t all-contributors add foo bug --commitTemplate '<%= (newContributor ? "Add" : "Update") %> @<%= username %> as a contributor'
+	-gh pr list -s all -L 1000 --json author -t "$$(/bin/echo -e '{{ range . }}{{ .author.login }}\n{{ end }}')" | sort | uniq | xargs -Ifoo -t all-contributors add foo code --commitTemplate '<%= (newContributor ? "Add" : "Update") %> @<%= username %> as a contributor'

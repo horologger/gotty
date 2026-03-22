@@ -1,12 +1,13 @@
 import { Component, ComponentChildren, createRef, render } from "preact";
-import { ITerminalAddon, Terminal } from "xterm";
-import { Browser, Detection, Offer, Sentry, Session } from 'zmodem.js/src/zmodem_browser';
+import { ITerminalAddon, Terminal } from "@xterm/xterm";
+import { Browser, Detection, Offer, Sentry, Session } from "zmodem.js";
 import { Button, MyModal } from "./MyModal";
 
 export class ZModemAddon implements ITerminalAddon {
     term: Terminal;
     elem: HTMLDivElement;
     sentry: Sentry;
+
     toTerminal: (data: Uint8Array) => void;
     toServer: (data: Uint8Array) => void;
 
@@ -209,15 +210,17 @@ export class SendFileModal extends Component<SendFileModalProps, SendFileModalSt
     send() {
         Browser.send_files(this.props.session,
             this.filePickerRef.current!.files, {
-            on_offer_response: (f, xfer) => { this.setState({ state: "started" }) },
-        }).then(() => {
-            this.setState({ state: "done" })
-            this.props.session.close()
+                on_offer_response: (f, xfer) => {
+                    this.setState({ state: "started" })
+                },
+            }
+        ).then(() => {
+            this.setState({ state: "done" });
+            this.props.session.close();
             if (this.props.onFinish !== undefined) {
                 this.props.onFinish();
             }
-        })
-            .catch(e => console.log(e));
+        }).catch(e => console.log(e));
     }
 
     render() {
