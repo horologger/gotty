@@ -14,7 +14,10 @@ RUN CGO_ENABLED=0 make
 FROM alpine:latest
 RUN apk update && \
     apk upgrade && \
-    apk --no-cache add ca-certificates bash
+    apk --no-cache add ca-certificates bash && \
+    apk add htop yq jq kmux screen libgcc gcompat; \
+    rm -f /var/cache/apk/*
+
 WORKDIR /root
 COPY --from=go-build /gotty/gotty /usr/bin/
 CMD ["gotty",  "-w", "bash"]
