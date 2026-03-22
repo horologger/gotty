@@ -1,10 +1,11 @@
 FROM node:22-bookworm-slim AS js-build
 WORKDIR /gotty
+RUN apt-get update && apt-get install -y --no-install-recommends make && rm -rf /var/lib/apt/lists/*
 COPY js /gotty/js
 COPY Makefile /gotty/
 RUN make bindata/static/js/gotty.js.map
 
-FROM golang:1.23 as go-build
+FROM golang:1.23 AS go-build
 WORKDIR /gotty
 COPY . /gotty
 COPY --from=js-build /gotty/js/node_modules /gotty/js/node_modules
